@@ -64,7 +64,8 @@ int _bytesize(unsigned char code) {
 
 int getUtf8MessagWidth(char *cp) {
     int tail = strlen(cp);
-    int width = current = 0;
+    int width = 0;
+    int current = 0;
 
     while (current < tail) {
         unsigned char code;
