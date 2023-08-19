@@ -9,6 +9,10 @@
 #include "cursmesg.h"
 #include <ctype.h>
 
+#ifdef USER_SOUNDS
+extern void play_sound_for_message(const char *str);
+#endif /* USER_SOUNDS */
+
 /* defined in sys/<foo>/<foo>tty.c or cursmain.c as last resort;
    set up by curses_init_nhwindows() */
 extern char erase_char, kill_char;
@@ -92,6 +96,10 @@ curses_message_win_puts(const char *message, boolean recursed)
     WINDOW *win = curses_get_nhwin(MESSAGE_WIN);
     boolean bold, border = curses_window_has_border(MESSAGE_WIN);
     int message_length = getUtf8MessagWidth(message);
+
+#ifdef USER_SOUNDS
+    play_sound_for_message(message);
+#endif /* USER_SOUNDS */
 
 #if 0
     /*

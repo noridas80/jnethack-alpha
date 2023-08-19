@@ -210,9 +210,9 @@ WINTTYOBJ = getline.o termcap.o topl.o wintty.o
 WINCURSESSRC = ../win/curses/cursmain.c ../win/curses/curswins.c \
 	../win/curses/cursmisc.c ../win/curses/cursdial.c \
 	../win/curses/cursstat.c ../win/curses/cursinit.c \
-	../win/curses/cursmesg.c ../win/curses/cursinvt.c
+	../win/curses/cursmesg.c ../win/curses/cursinvt.c ../win/curses/curssound.c
 WINCURSESOBJ = cursmain.o curswins.o cursmisc.o cursdial.o cursstat.o \
-	cursinit.o cursmesg.o cursinvt.o
+	cursinit.o cursmesg.o cursinvt.o curssound.o
 #
 # files for an X11 port
 # (tile.c is a generated source file)
@@ -455,7 +455,7 @@ HACKCSRC = allmain.c alloc.c apply.c artifact.c attrib.c ball.c bones.c \
 	   sp_lev.c spell.c steal.c steed.c sys.c teleport.c timeout.c \
 	   topten.c track.c trap.c u_init.c \
 	   uhitm.c vault.c version.c vision.c weapon.c were.c wield.c \
-	   windows.c wizard.c worm.c worn.c write.c zap.c
+	   windows.c wizard.c worm.c worn.c write.c zap.c wav.c
 
 # all operating-system-dependent .c (for dependencies and such)
 SYSCSRC = ../sys/atari/tos.c ../sys/share/pcmain.c ../sys/share/pcsys.c \
@@ -522,7 +522,7 @@ HOBJ = monstj.o objectsj.o allmain.o alloc.o apply.o artifact.o attrib.o ball.o 
 	sys.o \
 	steal.o steed.o teleport.o timeout.o topten.o track.o trap.o u_init.o \
 	uhitm.o vault.o vision.o vis_tab.o weapon.o were.o wield.o windows.o \
-	wizard.o worm.o worn.o write.o zap.o \
+	wizard.o worm.o worn.o write.o zap.o wav.o \
 	$(REGEXOBJ) $(RANDOBJ) $(JOBJ) $(SYSOBJ) $(WINOBJ) $(HINTOBJ) version.o
 # the .o files from the HACKCSRC, SYSSRC, and WINSRC lists
 
@@ -806,6 +806,8 @@ cursmesg.o: ../win/curses/cursmesg.c $(HACK_H) ../include/wincurs.h \
 cursinvt.o: ../win/curses/cursinvt.c $(HACK_H) ../include/wincurs.h \
 		../win/curses/cursinvt.h
 	$(CC) $(CFLAGS) -c -o $@ ../win/curses/cursinvt.c
+curssound.o: ../win/curses/curssound.c $(HACK_H) ../include/wav.h
+	$(CC) $(CFLAGS) -c -o $@ ../win/curses/curssound.c
 Window.o: ../win/X11/Window.c ../include/xwindowp.h ../include/xwindow.h \
 		$(CONFIG_H) ../include/lint.h
 	$(CC) $(CFLAGS) $(X11CFLAGS) -c -o $@ ../win/X11/Window.c
@@ -1071,6 +1073,7 @@ shk.o: shk.c $(HACK_H)
 shknam.o: shknam.c $(HACK_H)
 sit.o: sit.c $(HACK_H) ../include/artifact.h
 sounds.o: sounds.c $(HACK_H)
+wav.o: wav.c $(HACK_H)
 sp_lev.o: sp_lev.c $(HACK_H) ../include/dlb.h ../include/sp_lev.h
 spell.o: spell.c $(HACK_H)
 steal.o: steal.c $(HACK_H)
